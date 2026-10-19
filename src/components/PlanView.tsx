@@ -8,9 +8,11 @@ import { LineEditor } from './LineEditor'
 interface Props {
   state: ListState
   dispatch: Dispatch<Action>
+  /** Called instead of dispatching startShop, so the app can note where each line is first. */
+  onStartShop: () => void
 }
 
-export function PlanView({ state, dispatch }: Props) {
+export function PlanView({ state, dispatch, onStartShop }: Props) {
   const { lines, history } = state
   const [activeId, setActiveId] = useState<string | null>(null)
   const [focusId, setFocusId] = useState<string | null>(null)
@@ -110,12 +112,7 @@ export function PlanView({ state, dispatch }: Props) {
       </main>
 
       <div className="floating">
-        <button
-          type="button"
-          className="primary"
-          disabled={count === 0}
-          onClick={() => dispatch({ type: 'startShop' })}
-        >
+        <button type="button" className="primary" disabled={count === 0} onClick={onStartShop}>
           Start Shop
         </button>
       </div>

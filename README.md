@@ -11,6 +11,7 @@ Type the list at home one line at a time, press Start Shop, and the items are so
   Quantities and weights go on the same line and are understood: `onions x3`, `chicken breasts 400g`, `1kg turkey mince`, `2 x 400g chopped tomatoes`, `6 eggs`.
   Backspace on an empty line removes it, and pasting several lines of text adds a line per item.
 - **Shop.** Start Shop sorts the list into sections in the order a supermarket is usually walked: fruit and veg, bakery, meat and fish, dairy and eggs, chilled, pantry, snacks, drinks, frozen, household, health and beauty, baby and pet.
+  Each section has its own colour and icon, and the lines glide from where they were typed into their sections when the shop starts.
   Tick items off as they go in the trolley; a bar at the top shows how far round you are.
   Anything the app put in the wrong section can be moved with the small control at the end of its row, and the choice is remembered for next time.
   Edit list goes back to the plan without losing ticks.

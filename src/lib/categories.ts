@@ -1,18 +1,18 @@
-/** Shop sections, in the order a typical UK supermarket is walked. */
+/** Shop sections, in the order a typical UK supermarket is walked. Each has a colour in index.css. */
 export const CATEGORIES = [
-  { id: 'fruit-veg', label: 'Fruit & Veg' },
-  { id: 'bakery', label: 'Bakery' },
-  { id: 'meat-fish', label: 'Meat & Fish' },
-  { id: 'dairy-eggs', label: 'Dairy & Eggs' },
-  { id: 'chilled', label: 'Chilled & Deli' },
-  { id: 'pantry', label: 'Pantry' },
-  { id: 'snacks', label: 'Snacks & Sweets' },
-  { id: 'drinks', label: 'Drinks' },
-  { id: 'frozen', label: 'Frozen' },
-  { id: 'household', label: 'Household' },
-  { id: 'health', label: 'Health & Beauty' },
-  { id: 'baby-pet', label: 'Baby & Pet' },
-  { id: 'other', label: 'Other' },
+  { id: 'fruit-veg', label: 'Fruit & Veg', emoji: '🥦' },
+  { id: 'bakery', label: 'Bakery', emoji: '🥖' },
+  { id: 'meat-fish', label: 'Meat & Fish', emoji: '🥩' },
+  { id: 'dairy-eggs', label: 'Dairy & Eggs', emoji: '🥛' },
+  { id: 'chilled', label: 'Chilled & Deli', emoji: '🧀' },
+  { id: 'pantry', label: 'Pantry', emoji: '🥫' },
+  { id: 'snacks', label: 'Snacks & Sweets', emoji: '🍫' },
+  { id: 'drinks', label: 'Drinks', emoji: '🥤' },
+  { id: 'frozen', label: 'Frozen', emoji: '🧊' },
+  { id: 'household', label: 'Household', emoji: '🧽' },
+  { id: 'health', label: 'Health & Beauty', emoji: '🧴' },
+  { id: 'baby-pet', label: 'Baby & Pet', emoji: '🐾' },
+  { id: 'other', label: 'Other', emoji: '🛒' },
 ] as const
 
 export type CategoryId = (typeof CATEGORIES)[number]['id']

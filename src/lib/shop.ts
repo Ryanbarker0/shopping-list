@@ -13,6 +13,7 @@ export interface ShopItem {
 export interface ShopGroup {
   category: CategoryId
   label: string
+  emoji: string
   items: ShopItem[]
 }
 
@@ -37,8 +38,8 @@ export function groupItems(items: readonly ShopItem[], overrides: CategoryOverri
     if (group) group.push(item)
     else byCategory.set(category, [item])
   }
-  return CATEGORIES.flatMap(({ id, label }) => {
+  return CATEGORIES.flatMap(({ id, label, emoji }) => {
     const items = byCategory.get(id)
-    return items ? [{ category: id, label, items }] : []
+    return items ? [{ category: id, label, emoji, items }] : []
   })
 }

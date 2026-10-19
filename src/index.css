@@ -332,7 +332,6 @@ p {
   display: block;
   height: 100%;
   background: var(--accent);
-  transition: width 200ms ease;
 }
 
 .group {
@@ -464,4 +463,188 @@ p {
   outline: 2px solid var(--accent);
   outline-offset: -4px;
   border-radius: var(--radius-sm);
+}
+
+/* Section colours. Each group sets --cat; everything inside tints from it. */
+
+.group[data-category='fruit-veg'] {
+  --cat: #2a9d5c;
+}
+.group[data-category='bakery'] {
+  --cat: #c4862a;
+}
+.group[data-category='meat-fish'] {
+  --cat: #cf4b4b;
+}
+.group[data-category='dairy-eggs'] {
+  --cat: #3a7bd5;
+}
+.group[data-category='chilled'] {
+  --cat: #1f9ca3;
+}
+.group[data-category='pantry'] {
+  --cat: #b8641f;
+}
+.group[data-category='snacks'] {
+  --cat: #d1478c;
+}
+.group[data-category='drinks'] {
+  --cat: #7a5bd6;
+}
+.group[data-category='frozen'] {
+  --cat: #2f9fd6;
+}
+.group[data-category='household'] {
+  --cat: #5f7a8f;
+}
+.group[data-category='health'] {
+  --cat: #a856c4;
+}
+.group[data-category='baby-pet'] {
+  --cat: #b59a12;
+}
+.group[data-category='other'] {
+  --cat: #807c72;
+}
+
+@media (prefers-color-scheme: dark) {
+  .group[data-category='fruit-veg'] {
+    --cat: #4fd07f;
+  }
+  .group[data-category='bakery'] {
+    --cat: #e8ab4c;
+  }
+  .group[data-category='meat-fish'] {
+    --cat: #f07070;
+  }
+  .group[data-category='dairy-eggs'] {
+    --cat: #6ea8f2;
+  }
+  .group[data-category='chilled'] {
+    --cat: #4fc6cc;
+  }
+  .group[data-category='pantry'] {
+    --cat: #dc8a42;
+  }
+  .group[data-category='snacks'] {
+    --cat: #f076b0;
+  }
+  .group[data-category='drinks'] {
+    --cat: #a48ff2;
+  }
+  .group[data-category='frozen'] {
+    --cat: #6fcaf2;
+  }
+  .group[data-category='household'] {
+    --cat: #93a9bb;
+  }
+  .group[data-category='health'] {
+    --cat: #cc8ee2;
+  }
+  .group[data-category='baby-pet'] {
+    --cat: #dcc03e;
+  }
+  .group[data-category='other'] {
+    --cat: #9c988d;
+  }
+}
+
+.group h3 {
+  color: var(--cat);
+}
+
+.group-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.group-emoji {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.group-count {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.group .items {
+  border-left: 4px solid var(--cat);
+}
+
+.group .box {
+  border-color: color-mix(in srgb, var(--cat) 55%, var(--border-strong));
+}
+
+.group .item.checked .box {
+  background: var(--cat);
+  border-color: var(--cat);
+  color: #fff;
+}
+
+.group .item-qty {
+  background: color-mix(in srgb, var(--cat) 14%, transparent);
+  color: color-mix(in srgb, var(--cat) 75%, var(--text));
+}
+
+.group.done .items {
+  border-left-color: color-mix(in srgb, var(--cat) 40%, transparent);
+}
+
+/* Motion: sections cascade in, rows glide from the plan into place, ticks pop. */
+
+@keyframes group-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.group.enter > h3 {
+  animation: group-enter 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.item {
+  will-change: transform;
+}
+
+@keyframes tick-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  55% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.item.checked .box {
+  animation: tick-pop 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.item.checked .box svg {
+  animation: group-enter 200ms ease-out both;
+}
+
+.progress > span {
+  transition: width 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group.enter > h3,
+  .item.checked .box,
+  .item.checked .box svg {
+    animation: none;
+  }
+  .progress > span {
+    transition: none;
+  }
 }

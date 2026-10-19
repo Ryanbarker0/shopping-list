@@ -76,7 +76,7 @@ export function LineEditor({
   const hint = formatQuantity(parsed.quantity)
 
   return (
-    <li className={`line${active ? ' active' : ''}`}>
+    <li className={`line${active ? ' active' : ''}`} data-line-id={id}>
       <div className="line-row">
         <span className="line-dot" aria-hidden="true" />
         <input

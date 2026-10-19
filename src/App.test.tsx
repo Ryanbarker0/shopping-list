@@ -151,6 +151,6 @@ describe('App', () => {
 
     render(<App />)
     expect(screen.getByRole('checkbox', { name: /milk/ })).toBeChecked()
-    expect(screen.getByText('All done')).toBeInTheDocument()
+    expect(screen.getByText('All done 🎉')).toBeInTheDocument()
   })
 })

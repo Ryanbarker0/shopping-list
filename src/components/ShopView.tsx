@@ -1,18 +1,23 @@
-import { useMemo, type Dispatch } from 'react'
+import { useMemo, useRef, type CSSProperties, type Dispatch } from 'react'
 import { formatQuantity } from '../lib/parseLine'
 import { groupItems, itemsFrom } from '../lib/shop'
 import type { ListState } from '../lib/storage'
 import type { Action } from '../state/useShoppingList'
 import { CategoryPicker } from './CategoryPicker'
 import { ConfirmButton } from './ConfirmButton'
+import { useFlyIn } from './useFlyIn'
 
 interface Props {
   state: ListState
   dispatch: Dispatch<Action>
+  /** Where each line was on the plan screen, keyed by line id, for the opening animation. */
+  flyFrom: ReadonlyMap<string, DOMRect>
 }
 
-export function ShopView({ state, dispatch }: Props) {
+export function ShopView({ state, dispatch, flyFrom }: Props) {
   const { lines, checked, overrides } = state
+  const listRef = useRef<HTMLElement>(null)
+  useFlyIn(listRef, flyFrom)
   const items = useMemo(() => itemsFrom(lines, checked), [lines, checked])
   const groups = useMemo(() => groupItems(items, overrides), [items, overrides])
   const done = items.filter((i) => i.checked).length
@@ -24,7 +29,7 @@ export function ShopView({ state, dispatch }: Props) {
         <div>
           <h1>Shop</h1>
           <p className="muted small" aria-live="polite">
-            {allDone ? 'All done' : `${done} of ${items.length} picked up`}
+            {allDone ? 'All done 🎉' : `${done} of ${items.length} picked up`}
           </p>
         </div>
         <button type="button" className="ghost" onClick={() => dispatch({ type: 'backToPlan' })}>
@@ -42,18 +47,25 @@ export function ShopView({ state, dispatch }: Props) {
         </div>
       </header>
 
-      <main className="scroll">
-        {groups.map((group) => {
+      <main className="scroll" ref={listRef}>
+        {groups.map((group, groupIndex) => {
           const groupDone = group.items.filter((i) => i.checked).length
           return (
             <section
               key={group.category}
               className={`group${groupDone === group.items.length ? ' done' : ''}`}
+              data-category={group.category}
+              style={{ '--enter-delay': `${groupIndex * 90}ms` } as CSSProperties}
               aria-labelledby={`group-${group.category}`}
             >
               <h3 id={`group-${group.category}`}>
-                {group.label}
-                <span className="faint">
+                <span className="group-title">
+                  <span className="group-emoji" aria-hidden="true">
+                    {group.emoji}
+                  </span>
+                  {group.label}
+                </span>
+                <span className="group-count">
                   {groupDone}/{group.items.length}
                 </span>
               </h3>
@@ -61,7 +73,11 @@ export function ShopView({ state, dispatch }: Props) {
                 {group.items.map((item) => {
                   const quantity = formatQuantity(item.quantity)
                   return (
-                    <li key={item.id} className={`item${item.checked ? ' checked' : ''}`}>
+                    <li
+                      key={item.id}
+                      className={`item${item.checked ? ' checked' : ''}`}
+                      data-item-id={item.id}
+                    >
                       <label className="item-main">
                         <input
                           type="checkbox"
