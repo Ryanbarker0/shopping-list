@@ -61,6 +61,8 @@ describe('categorise', () => {
     ['sparkling water', 'drinks'],
     ['beans', 'pantry'],
     ['cherry bakewells', 'snacks'],
+    ['salad dressing', 'pantry'],
+    ['salad cream', 'pantry'],
     ['pork pies', 'chilled'],
     ['squash', 'drinks'],
     ["Ben & Jerry's", 'frozen'],
